@@ -4,30 +4,39 @@
     </div>
 </template>
 <script setup>
-import {ref,onMounted} from 'vue'
+import {ref,watch,nextTick} from 'vue'
 import { Flip } from './index'
+const props = defineProps({
+  mutation:{
+    type: [Array, Object, Number , String ,Boolean],
+    default: undefined
+  },
+  animateOption:{
+    type: Object,
+    default: () => ({
+      duration: 200
+    })
+  },
+  styles:{
+    type: Array,
+    default: () => []
+  }
+})
 const flipRef = ref()
 
-onMounted(()=>{
-  const resizeObserver = new ResizeObserver(entries => {
-    entries.forEach(entry => {
-      console.log('新尺寸:', entry.contentRect)
-      // console.log('新位置:', entry.target.getBoundingClientRect())
-      requestAnimationFrame(()=>{
-        entry.target.__flip.flip(entry.target).then(()=>{
-          entry.target.__flip.captureFirstState(element)
-        })
-      })
-    })
-  })
+watch(()=>props.mutation,()=>{
   Array.from(flipRef.value.children).forEach(element=>{
-    const flip = new Flip({
-      duration:2000,
-      action:['size']
+    if(!element.__flip){
+      const flip = new Flip({
+        animateOption:props.animateOption,
+        styles:props.styles
+      })
+      element.__flip = flip
+    }
+    element.__flip.captureFirstState(element)
+    nextTick(()=>{
+      element.__flip.flip(element)
     })
-    flip.captureFirstState(element)
-    element.__flip = flip
-    resizeObserver.observe(element)
   })
-})
+},{deep:true})
 </script>

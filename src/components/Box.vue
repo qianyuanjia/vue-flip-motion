@@ -1,19 +1,23 @@
 <script setup>
-import { ref } from 'vue'
+import { ref ,computed} from 'vue'
 import Flip from './Flip/index.vue'
-const style=ref({
-
+const styles = ref({})
+const handleClick = ()=>{
+  styles.value.height = '200px'
+  styles.value.bgColor = 'red'
+}
+const mutation = computed(()=>{
+  return {
+    styles
+  }
 })
-// setTimeout(()=>{
-//   style.value={
-//     backgroundColor:'red'
-//   }
-// },3000)
 </script>
 
 <template>
-  <Flip>
-    <div class="box"></div>
+  <Flip :mutation="mutation" :styles="['backgroundColor']" :animate-option="{duration: 2000}">
+    <div class="box" @click="handleClick" :style="{height:styles.height,
+      background:styles.bgColor
+    }"></div>
   </Flip>
 </template>
 
@@ -22,9 +26,5 @@ const style=ref({
   background-color: pink;
   width: 100px;
   height: 100px;
-  &:hover{
-    width: 200px;
-    height: 200px;
-  }
 }
 </style>
