@@ -6,15 +6,10 @@ const handleClick = ()=>{
   styles.value.height = '200px'
   styles.value.bgColor = 'red'
 }
-const mutation = computed(()=>{
-  return {
-    styles
-  }
-})
 </script>
 
 <template>
-  <Flip :mutation="mutation" :styles="['backgroundColor']" :animate-option="{duration: 2000}">
+  <Flip :mutation="styles" :styles="['backgroundColor']" :animate-option="{duration: 2000}">
     <div class="box" @click="handleClick" :style="{height:styles.height,
       background:styles.bgColor
     }"></div>

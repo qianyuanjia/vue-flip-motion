@@ -20,22 +20,26 @@ const props = defineProps({
   styles:{
     type: Array,
     default: () => []
+  },
+  name:{
+    type: String,
+    default: ''
   }
 })
 const flipRef = ref()
 
+const flipOption = computed(()=>({
+  animateOption:props.animateOption,
+  styles:props.styles,
+  name:props.name
+}))
+
 watch(()=>props.mutation,()=>{
   Array.from(flipRef.value.children).forEach(element=>{
-    if(!element.__flip){
-      const flip = new Flip({
-        animateOption:props.animateOption,
-        styles:props.styles
-      })
-      element.__flip = flip
-    }
-    element.__flip.captureFirstState(element)
+    const flip = new Flip(flipOption.value)
+    flip.captureFirstState(element)
     nextTick(()=>{
-      element.__flip.flip(element)
+      flip.flip(element)
     })
   })
 },{deep:true})

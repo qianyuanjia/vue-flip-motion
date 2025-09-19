@@ -3,6 +3,7 @@ export class Flip {
   constructor(options = {}) {
     this.animateOption = options.animateOption || {}
     this.styles = options.styles || []
+    this.name = options.name
   }
 
   // 记录元素初始状态
@@ -29,8 +30,13 @@ export class Flip {
  getKeyFrame(firstState, lastState) {
     const { rect:firstRect, transform, styles } = firstState;
     const { rect:lastRect, transform: lastTransform, styles: lastStyles } = lastState;
-    const diffX = firstRect.center.x - lastRect.center.x;
-    const diffY = firstRect.center.y - lastRect.center.y;
+    let diffX = firstRect.center.x - lastRect.center.x;
+    let diffY = firstRect.center.y - lastRect.center.y;
+    if(lastTransform.startsWith('matrix')){
+        const [tx, ty] = lastTransform.slice(0,-1).split(',').slice(-2).map(Number)
+        diffX=tx+diffX
+        diffY=ty+diffY
+    }
     return {
         firstAnimateKeyframe:{
             ...styles,
