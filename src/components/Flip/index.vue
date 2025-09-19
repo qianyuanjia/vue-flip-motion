@@ -4,7 +4,7 @@
     </div>
 </template>
 <script setup>
-import {ref,watch,nextTick} from 'vue'
+import {ref,watch,nextTick, computed} from 'vue'
 import { Flip } from './index'
 const props = defineProps({
   mutation:{

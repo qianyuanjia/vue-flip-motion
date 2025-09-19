@@ -8,9 +8,16 @@ export class Flip {
   // 记录元素初始状态
   captureState(element) {
     const computedStyle = window.getComputedStyle(element);
+    const rect = element.getBoundingClientRect();
+    rect.offsetWidth=element.offsetWidth
+    rect.offsetHeight=element.offsetHeight
+    rect.center = {
+        x:rect.left+rect.width/2,
+        y:rect.top+rect.height/2
+    }
     const state={
         transform: computedStyle.transform==='none'?'':computedStyle.transform,
-        rect:element.getBoundingClientRect(),
+        rect,
         styles:{}
     }
     this.styles.forEach(style=>{
@@ -22,19 +29,19 @@ export class Flip {
  getKeyFrame(firstState, lastState) {
     const { rect:firstRect, transform, styles } = firstState;
     const { rect:lastRect, transform: lastTransform, styles: lastStyles } = lastState;
-    const diffX = firstRect.left - firstRect.left;
-    const diffY = firstRect.top - lastRect.top;
+    const diffX = firstRect.center.x - lastRect.center.x;
+    const diffY = firstRect.center.y - lastRect.center.y;
     return {
         firstAnimateKeyframe:{
             ...styles,
-            width: `${firstRect.width}px`,
-            height: `${firstRect.height}px`,
+            width: `${firstRect.offsetWidth}px`,
+            height: `${firstRect.offsetHeight}px`,
             transform: `translateX(${diffX}px) translateY(${diffY}px) ${transform}`
         },
         lastAnimateKeyframe: {
             ...lastStyles,
-            width: `${lastRect.width}px`,
-            height: `${lastRect.height}px`,
+            width: `${lastRect.offsetWidth}px`,
+            height: `${lastRect.offsetHeight}px`,
             transform: lastTransform
         }
     }
