@@ -1,12 +1,12 @@
-# vue-flip
+# vue-flip-motion
 
-[![npm version](https://img.shields.io/npm/v/vue-flip)](https://www.npmjs.com/package/vue-flip)
-[![license](https://img.shields.io/npm/l/vue-flip)](https://github.com/your-repo/vue-flip/blob/main/LICENSE)
-[![downloads](https://img.shields.io/npm/dm/vue-flip)](https://www.npmjs.com/package/vue-flip)
+[![npm version](https://img.shields.io/npm/v/vue-flip-motion)](https://www.npmjs.com/package/vue-flip-motion)
+[![license](https://img.shields.io/npm/l/vue-flip-motion)](https://github.com/your-repo/vue-flip-motion/blob/main/LICENSE)
+[![downloads](https://img.shields.io/npm/dm/vue-flip-motion)](https://www.npmjs.com/package/vue-flip-motion)
 
 基于 FLIP (First Last Invert Play) 动画技术封装的 Vue 组件，让您的动画效果如德芙般丝滑流畅！
 
-![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip/refs/heads/main/src/assets/demo1.gif)
+![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/demo1.gif)
 
 ## ✨ 特性
 
@@ -21,13 +21,13 @@
 使用 npm 安装：
 
 ```bash
-npm install vue-flip
+npm install vue-flip-motion
 ```
 
 或使用 yarn：
 
 ```bash
-yarn add vue-flip
+yarn add vue-flip-motion
 ```
 
 ## 🔨 使用指南
@@ -36,10 +36,10 @@ yarn add vue-flip
 
 ```js
 // Vue 2.x
-import { Vue2Flip } from 'vue-flip';
+import { Vue2Flip } from 'vue-flip-motion';
 
 // Vue 3.x
-import { Flip } from 'vue-flip';
+import { Flip } from 'vue-flip-motion';
 ```
 
 ```vue
@@ -61,7 +61,7 @@ import { Flip } from 'vue-flip';
 </template>
 
 <script>
-import { Vue2Flip } from 'vue-flip';
+import { Vue2Flip } from 'vue-flip-motion';
 export default {
   components: {Flip: Vue2Flip},
   data() {

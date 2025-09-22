@@ -78,7 +78,7 @@ declare const Flip: DefineComponent<FlipProps>
  */
 declare const Vue2Flip: DefineComponent<Vue2FlipProps>
 
-declare module 'vue-flip' {
+declare module 'vue-flip-motion' {
     export { Flip, Vue2Flip }
     export type { FlipAnimationOptions, FlipProps, Vue2FlipProps }
 }
