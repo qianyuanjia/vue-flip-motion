@@ -1,18 +1,49 @@
 {
   "name": "vue-flip",
-  "private": true,
   "version": "0.0.0",
+  "description": "A Vue component based on FLIP (First Last Invert Play) animation technique that makes your animations as smooth as silk!",
+  "keywords": [
+    "flip",
+    "animation",
+    "vue",
+    "component"
+  ],
   "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/flip.cjs"
+    }
+  },
+  "homepage": "https://github.com/qianyuanjia/vue-flip#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qianyuanjia/vue-flip.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepublishOnly": "rollup --config rollup.config.js",
+    "pub": "npm version patch && npm publish --registry=https://registry.npmjs.org/"
   },
-  "dependencies": {
-    "vue": "^3.5.21"
+  "files": [
+    "dist",
+    "README.md",
+    "package.json"
+  ],
+  "author": "huanyue",
+  "license": "MIT",
+  "peerDependencies": {
+    "vue": "^2.6.0 || ^3.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
-    "vite": "^7.1.6"
+    "rollup-plugin-dts": "^6.2.3",
+    "vite": "^7.1.6",
+    "vue": "^3.5.21"
   }
 }
