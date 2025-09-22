@@ -27,11 +27,11 @@ const handleClick = ()=>{
   border-radius: 50%;
   &.active{
       background-color: green;
-      /* transform: scale(2); */
+      transform: scale(1.5);
   }
   &.roll{
-      transform: translateX(200px);
-    /* transform: translate(200px,100px); */
+      /* transform: translateX(200px); */
+    transform: translate(200px,100px);
   }
 }
 </style>

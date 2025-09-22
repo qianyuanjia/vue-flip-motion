@@ -21,6 +21,10 @@ const props = defineProps({
     type: Array,
     default: () => []
   },
+  selector:{
+    type: String,
+    default: ''
+  },
   name:{
     type: String,
     default: ''
@@ -35,7 +39,13 @@ const flipOption = computed(()=>({
 }))
 
 watch(()=>props.mutation,()=>{
-  Array.from(flipRef.value.children).forEach(element=>{
+  let elements =[]
+  if(props.selector){
+    elements= flipRef.value.querySelectorAll(props.selector);
+  }else{
+    elements = Array.from(flipRef.value.children);
+  }
+  elements.forEach(element=>{
     const flip = new Flip(flipOption.value)
     flip.captureFirstState(element)
     nextTick(()=>{

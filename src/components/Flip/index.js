@@ -30,8 +30,9 @@ export class Flip {
  getKeyFrame(firstState, lastState) {
     const { rect:firstRect, transform, styles } = firstState;
     const { rect:lastRect, transform: lastTransform, styles: lastStyles } = lastState;
-    let diffX = firstRect.center.x - lastRect.center.x;
-    let diffY = firstRect.center.y - lastRect.center.y;
+    const isSameSize=firstRect.offsetWidth===lastRect.offsetWidth && firstRect.offsetHeight===lastRect.offsetHeight;
+    let diffX = isSameSize?firstRect.center.x - lastRect.center.x:firstRect.left - lastRect.left;
+    let diffY = isSameSize?firstRect.center.y - lastRect.center.y:firstRect.top - lastRect.top;
     if(lastTransform.startsWith('matrix')){
         const [tx, ty] = lastTransform.slice(0,-1).split(',').slice(-2).map(Number)
         diffX=tx+diffX
@@ -48,7 +49,7 @@ export class Flip {
             ...lastStyles,
             width: `${lastRect.offsetWidth}px`,
             height: `${lastRect.offsetHeight}px`,
-            transform: lastTransform
+            // transform: lastTransform
         }
     }
   }
@@ -61,7 +62,6 @@ export class Flip {
       firstAnimateKeyframe,
       lastAnimateKeyframe
     ], this.animateOption);
-
     return new Promise(resolve => {
         animation.onfinish = () => {
             this.isRunning = false;
