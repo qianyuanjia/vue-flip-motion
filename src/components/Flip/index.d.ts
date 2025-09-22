@@ -66,7 +66,7 @@ interface FlipProps {
 /**
  * Vue 2 FLIP 组件 Props
  */
-interface Vue2FlipProps extends FlipProps { }
+// interface Vue2FlipProps extends FlipProps { }
 
 /**
  * Vue 3 FLIP 组件
@@ -76,9 +76,10 @@ declare const Flip: DefineComponent<FlipProps>
 /**
  * Vue 2 FLIP 组件
  */
-declare const Vue2Flip: DefineComponent<Vue2FlipProps>
+// declare const Vue2Flip: DefineComponent<Vue2FlipProps>
 
-declare module 'vue-flip-motion' {
-    export { Flip, Vue2Flip }
-    export type { FlipAnimationOptions, FlipProps, Vue2FlipProps }
-}
+export default Flip
+
+// declare module 'vue-flip-motion/vue2' {
+//     export default Vue2Flip
+// }
