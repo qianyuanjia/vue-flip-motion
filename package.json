@@ -27,7 +27,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "prepublishOnly": "rollup --config rollup.config.js",
+    "prepublishOnly": "rollup --config rollup.config.js && rollup --config src/components/Flip/vue2/rollup.config.js",
     "pub": "npm version patch && npm publish --registry=https://registry.npmjs.org/"
   },
   "files": [
@@ -38,11 +38,12 @@
   "author": "huanyue",
   "license": "MIT",
   "peerDependencies": {
-    "vue": "^2.6.0 || ^3.0.0"
+    "vue": "^2.6.10 || ^3.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
     "rollup-plugin-dts": "^6.2.3",
+    "rollup-plugin-vue": "^6.0.0",
     "vite": "^7.1.6",
     "vue": "^3.5.21"
   }

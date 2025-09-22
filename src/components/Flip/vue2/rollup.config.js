@@ -1,31 +1,28 @@
 import { defineConfig } from 'rollup';
-import dts from 'rollup-plugin-dts';
 import vue from 'rollup-plugin-vue'
+import vue2Compiler from 'vue-template-compiler';
 
 export default defineConfig([
   {
-    input: 'src/components/Flip/index.vue',
+    input: 'src/components/Flip/vue2.vue',
     output: [
       {
-        file: 'dist/index.cjs',
+        file: 'dist/vue2/index.cjs',
         format: 'cjs',
       },
       {
-        file: 'dist/index.mjs',
+        file: 'dist/vue2/index.mjs',
         format: 'esm',
       },
     ],
     external: ['vue'],
     plugins: [
-      vue(),
+      vue({
+        compiler: vue2Compiler,
+      }),
     ],
     watch: {
       exclude: 'node_modules/**',
     },
-  },
-  {
-    input: 'src/components/Flip/index.d.ts',
-    output: [{ file: './dist/index.d.ts', format: 'es' }],
-    plugins: [dts()],
-  },
+  }
 ]);
