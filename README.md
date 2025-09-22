@@ -98,7 +98,7 @@ export default {
 | 选项 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | `delay` | Number | 0 | 动画开始前的延迟时间(ms) |
-| `duration` | Number | 0 | 单次动画周期时长(ms) |
+| `duration` | Number | 200 | 单次动画周期时长(ms) |
 | `easing` | String | "linear" | 动画缓动函数 |
 | `direction` | String | "normal" | 动画播放方向 |
 | `iterations` | Number/Infinity | 1 | 动画重复次数 |
