@@ -36,10 +36,10 @@ yarn add vue-flip-motion
 
 ```js
 // Vue 2.x
-import { Vue2Flip } from 'vue-flip-motion';
+import Flip from 'vue-flip-motion/vue2';
 
 // Vue 3.x
-import { Flip } from 'vue-flip-motion';
+import Flip from 'vue-flip-motion';
 ```
 
 ```vue
@@ -61,9 +61,9 @@ import { Flip } from 'vue-flip-motion';
 </template>
 
 <script>
-import { Vue2Flip } from 'vue-flip-motion';
+import Flip from 'vue-flip-motion/vue2';
 export default {
-  components: {Flip: Vue2Flip},
+  components: {Flip},
   data() {
     return {
       styles: {

@@ -15,7 +15,11 @@
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/flip.cjs"
+      "require": "./dist/index.cjs"
+    },
+    "./vue2": {
+      "import": "./dist/vue2/index.mjs",
+      "require": "./dist/vue2/index.cjs"
     }
   },
   "homepage": "https://github.com/qianyuanjia/vue-flip-motion#readme",
