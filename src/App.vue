@@ -14,11 +14,12 @@ import Demo3 from './components/Demo3.vue'
     <!-- <Box />
     <Bars />
     <Circle />
-    <Pan />
-    <Embed /> -->
+    <Pan /> -->
+    <Embed />
     <!-- <Demo1 /> -->
-    <Demo2 />
+    <!-- <Demo2 /> -->
     <!-- <Demo3 /> -->
+    <!-- <Demo4 /> -->
   </div>
 </template>
 

@@ -30,6 +30,7 @@ const props = defineProps({
     default: ''
   }
 })
+const emits=defineEmits(['finish'])
 const flipRef = ref()
 
 const flipOption = computed(()=>({
@@ -49,7 +50,9 @@ watch(()=>props.mutation,()=>{
     const flip = new Flip(flipOption.value)
     flip.captureFirstState(element)
     nextTick(()=>{
-      flip.flip(element)
+      flip.flip(element).then(()=>{
+        emits('finish')
+      })
     })
   })
 },{deep:true})

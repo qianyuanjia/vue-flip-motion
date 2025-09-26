@@ -89,7 +89,7 @@ export default {
 | 参数 | 类型 | 必填 | 默认值 | 说明 |
 |------|------|------|--------|------|
 | `mutation` | [Array, Object, Number, String, Boolean] | 是 | - | 触发动画的响应式数据 |
-| `selector` | String | 否 | - | 自定义选择器, 会使用flip容器的querySelectorAll(`selector`)获取下面指定的元素。 |
+| `selector` | String | 否 | - | 默认使用flip组件的直接子元素为动画对象，自定义选择器, 会使用flip容器的querySelectorAll(`selector`)获取下面指定的元素。 |
 | `styles` | Array | 否 | [] | 默认`width`,`height`, `transform`, `position(位置)`样式属性会参与动画，styles数组中指定的其他样式属性也会参与动画，styles的元素值和vue style的属性名类同，可以通过`getComputedStyle(element)`查看 |
 | `animateOption` | Object | 否 | {} | 动画配置选项（详见下方） |
 
@@ -129,13 +129,14 @@ export default {
 
 ### 嵌套动画
 
-Flip组件可以嵌套使用，相当于叠加多个动画效果。
+Flip组件可以嵌套使用，相当于叠加多个动画效果,注意外层的Flip需要指定`selector`，否则会使用默认的子元素进行动画。
 
 ```vue
 <Flip 
   :mutation="roll" 
   :animate-option="{duration: 3000}" 
   name="roll"
+  selector=".box"
 >
   <Flip 
     :mutation="active" 
@@ -148,6 +149,20 @@ Flip组件可以嵌套使用，相当于叠加多个动画效果。
       @click="handleClick"
     ></div>
   </Flip>
+</Flip>
+```
+
+### 事件
+- `finish`: 动画结束时触发
+```vue
+<Flip 
+  :mutation="state" 
+  :animate-option="{duration: 500}"
+  @finish="handleFinish"
+>
+    <div class="animated-item" v-for="item in list" :key="item.id">
+      {{ item.text }}
+    </div>
 </Flip>
 ```
 

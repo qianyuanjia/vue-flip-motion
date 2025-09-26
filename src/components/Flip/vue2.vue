@@ -62,7 +62,9 @@ export default {
                     const flip = new Flip(this.flipOption)
                     flip.captureFirstState(element)
                     this.$nextTick(() => {
-                        flip.flip(element)
+                        flip.flip(element).then(()=>{
+                           this.$emit('finish')
+                        })
                     })
                 })
             },
