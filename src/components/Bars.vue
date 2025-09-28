@@ -1,6 +1,6 @@
 <template>
   <button @click="items=shuffleArray(items)">shuffle</button>
-  <Flip :mutation="mutation" :animate-option="{duration:200}">
+  <Flip :mutation="items" :animate-option="{duration:200}">
     <div class="bar" v-for="item in items" :key="item.id">{{item.name}}</div>
   </Flip>
 </template>
@@ -42,11 +42,6 @@ function shuffleArray(array) {
   }
   return result;
 }
-const mutation = computed(()=>{
-  return {
-    items
-  }
-})
 </script>
 <style scoped>
 .bar{

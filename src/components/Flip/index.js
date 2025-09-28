@@ -2,7 +2,7 @@
 export class Flip {
   constructor(options = {}) {
     this.animateOption = options.animateOption || {}
-    this.styles = options.styles || []
+    this.styles = options.styles || ['position-x','position-y','width','height']
     this.name = options.name
   }
 
@@ -21,8 +21,13 @@ export class Flip {
         rect,
         styles:{}
     }
+    if(!state.transform){
+      state.transform='matrix(1, 0, 0, 1, 0, 0)'
+    }
     this.styles.forEach(style=>{
+      if(!['position-x','position-y','transform'].includes(style)){
         state.styles[style] = computedStyle[style]
+      }
     })
     return state
   }
@@ -30,27 +35,40 @@ export class Flip {
  getKeyFrame(firstState, lastState) {
     const { rect:firstRect, transform, styles } = firstState;
     const { rect:lastRect, transform: lastTransform, styles: lastStyles } = lastState;
+    const firstAnimateKeyframe ={...styles}
+    const lastAnimateKeyframe ={...lastStyles}
+    if(this.styles.includes('width')){
+      firstAnimateKeyframe.width = `${firstRect.offsetWidth}px`
+      lastAnimateKeyframe.width = `${lastRect.offsetWidth}px`
+    }
+    if(this.styles.includes('height')){
+      firstAnimateKeyframe.height = `${firstRect.offsetHeight}px`
+      lastAnimateKeyframe.height = `${lastRect.offsetHeight}px`
+    }
     const isSameSize=firstRect.offsetWidth===lastRect.offsetWidth && firstRect.offsetHeight===lastRect.offsetHeight;
     let diffX = isSameSize?firstRect.center.x - lastRect.center.x:firstRect.left - lastRect.left;
     let diffY = isSameSize?firstRect.center.y - lastRect.center.y:firstRect.top - lastRect.top;
-    if(lastTransform.startsWith('matrix')){
-        const [tx, ty] = lastTransform.slice(0,-1).split(',').slice(-2).map(Number)
-        diffX=tx+diffX
-        diffY=ty+diffY
+    let firstMatrix = transform.slice(7,-1).split(',').map(Number)
+    const lastMatrix = lastTransform.slice(7,-1).split(',').map(Number)
+    diffX=lastMatrix[4]+diffX
+    diffY=lastMatrix[5]+diffY
+    if(this.styles.includes('position-x')){
+      firstMatrix[4] = firstMatrix[4] + diffX
+    }else{
+      firstMatrix[4] = lastMatrix[4]
     }
+    if(this.styles.includes('position-y')){
+      firstMatrix[5] = firstMatrix[5] + diffY
+    }else{
+      firstMatrix[5] = lastMatrix[5]
+    }
+    if(!this.styles.includes('transform')){
+      firstMatrix =[...lastMatrix.slice(0,4),firstMatrix[4],firstMatrix[5]]
+    }
+    firstAnimateKeyframe.transform = `matrix(${firstMatrix.join(',')})`
     return {
-        firstAnimateKeyframe:{
-            ...styles,
-            width: `${firstRect.offsetWidth}px`,
-            height: `${firstRect.offsetHeight}px`,
-            transform: `translateX(${diffX}px) translateY(${diffY}px) ${transform}`
-        },
-        lastAnimateKeyframe: {
-            ...lastStyles,
-            width: `${lastRect.offsetWidth}px`,
-            height: `${lastRect.offsetHeight}px`,
-            // transform: lastTransform
-        }
+        firstAnimateKeyframe,
+        lastAnimateKeyframe
     }
   }
 

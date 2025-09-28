@@ -46,7 +46,7 @@ import Flip from 'vue-flip-motion';
 <template>
   <Flip 
     :mutation="styles" 
-    :styles="['backgroundColor']" 
+    :styles="['backgroundColor','height']" 
     :animate-option="{duration: 1000}"
   >
     <div 
@@ -90,7 +90,7 @@ export default {
 |------|------|------|--------|------|
 | `mutation` | [Array, Object, Number, String, Boolean] | 是 | - | 触发动画的响应式数据 |
 | `selector` | String | 否 | - | 默认使用flip组件的直接子元素为动画对象，自定义选择器, 会使用flip容器的querySelectorAll(`selector`)获取下面指定的元素。 |
-| `styles` | Array | 否 | [] | 默认`width`,`height`, `transform`, `position(位置)`样式属性会参与动画，styles数组中指定的其他样式属性也会参与动画，styles的元素值和vue style的属性名类同，可以通过`getComputedStyle(element)`查看 |
+| `styles` | Array | 否 | ['position-x','position-y','width','height'] | styles数组指定参与动画的样式属性，除了`position-x, position-y`,其他样式属性和vue style的属性名类同，可以通过`getComputedStyle(element)`查看 |
 | `animateOption` | Object | 否 | {} | 动画配置选项（详见下方） |
 
 ### 动画配置选项 (animateOption)
@@ -135,6 +135,7 @@ Flip组件可以嵌套使用，相当于叠加多个动画效果,注意外层的
 <Flip 
   :mutation="roll" 
   :animate-option="{duration: 3000}" 
+  :styles="['position-x','position-y']" 
   name="roll"
   selector=".box"
 >
@@ -169,8 +170,8 @@ Flip组件可以嵌套使用，相当于叠加多个动画效果,注意外层的
 ## 📝 注意事项
 
 1. `mutation` 参数是必须的，它是触发动画的关键
-2. 默认会监听 `width`, `height`, `transform`, `position` 样式变化
-3. 可以通过 `styles` 数组指定需要监听的额外样式
+2. 默认会将元素尺寸和位置作为动画效果
+3. 可以通过 `styles` 数组指定需要的动画样式
 4. 嵌套使用时会产生叠加动画效果
 5. 确保选择器能正确匹配到目标元素
 

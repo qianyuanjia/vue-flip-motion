@@ -8,7 +8,7 @@ const handleClick = ()=>{
 </script>
 
 <template>
-  <Flip :mutation="active" :styles="['backgroundColor']" :animate-option="{duration: 2000}">
+  <Flip :mutation="active" :styles="['backgroundColor','transform']" :animate-option="{duration: 2000}">
     <div class="box" :class="{active}" @click="handleClick"></div>
   </Flip>
 </template>
@@ -19,7 +19,6 @@ const handleClick = ()=>{
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  transform: scale(1.5);
   &.active{
       background-color: green;
       transform: scale(2);

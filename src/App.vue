@@ -7,19 +7,20 @@ import Embed from './components/Embed.vue';
 import Demo1 from './components/Demo1.vue'
 import Demo2 from './components/Demo2.vue'
 import Demo3 from './components/Demo3.vue'
+import BuyCar from './components/BuyCar.vue'
 </script>
 
 <template>
   <div>
-    <!-- <Box />
-    <Bars />
-    <Circle />
-    <Pan /> -->
-    <Embed />
+    <!-- <Box /> -->
+    <!-- <Bars /> -->
+    <!-- <Circle /> -->
+    <!-- <Pan /> -->
+    <!-- <Embed /> -->
     <!-- <Demo1 /> -->
     <!-- <Demo2 /> -->
     <!-- <Demo3 /> -->
-    <!-- <Demo4 /> -->
+    <BuyCar />
   </div>
 </template>
 

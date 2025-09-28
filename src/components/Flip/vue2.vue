@@ -21,7 +21,7 @@ export default {
         },
         styles: {
             type: Array,
-            default: () => []
+            default: undefined
         },
         selector:{
             type: String,

@@ -19,7 +19,7 @@ const props = defineProps({
   },
   styles:{
     type: Array,
-    default: () => []
+    default: undefined
   },
   selector:{
     type: String,

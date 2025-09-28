@@ -5,15 +5,13 @@ const active = ref(false)
 const roll=ref(false)
 const handleClick = ()=>{
   active.value=true
-  setTimeout(()=>{
-    roll.value=true
-  },1000)
+  roll.value=true
 }
 </script>
 
 <template>
-    <Flip :mutation="roll" :animate-option="{duration: 3000}" name="roll" selector=".box">
-        <Flip :mutation="active" :styles="['backgroundColor']" :animate-option="{duration: 2000}">
+    <Flip :mutation="roll" :animate-option="{duration: 2000}" name="roll" selector=".box">
+        <Flip :mutation="active" :styles="['backgroundColor','transform']" :animate-option="{duration: 2000}">
           <div class="box" :class="{active,roll}" @click="handleClick"></div>
         </Flip>
     </Flip>
@@ -31,7 +29,7 @@ const handleClick = ()=>{
   }
   &.roll{
       /* transform: translateX(200px); */
-    transform: translate(200px,100px);
+    transform: translate(200px,100px) scale(1.5);
   }
 }
 </style>

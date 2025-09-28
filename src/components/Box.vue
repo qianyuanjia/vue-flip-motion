@@ -9,7 +9,7 @@ const handleClick = ()=>{
 </script>
 
 <template>
-  <Flip :mutation="styles" :styles="['backgroundColor']" :animate-option="{duration: 2000}">
+  <Flip :mutation="styles" :styles="['backgroundColor','height']" :animate-option="{duration: 2000}">
     <div class="box" @click="handleClick" :style="{height:styles.height,
       background:styles.bgColor
     }"></div>

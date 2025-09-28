@@ -1,7 +1,7 @@
 <template>
     <div class="wrap">
         <button @click="items=shuffleArray(items)" style="margin-bottom: 10px;">shuffle</button>
-        <Flip :mutation="items" :styles="['backgroundColor']" :animate-option="{duration:500}">
+        <Flip :mutation="items" :styles="['backgroundColor','width','position-y','position-x']" :animate-option="{duration:500}">
             <div class="bar" v-for="item in items" :key="item.id" :style="{
                 backgroundColor: item.color,
                 width: item.width+'px'
