@@ -8,6 +8,7 @@ import Demo1 from './components/Demo1.vue'
 import Demo2 from './components/Demo2.vue'
 import Demo3 from './components/Demo3.vue'
 import BuyCar from './components/BuyCar.vue'
+import Flip3D from './components/3d.vue'
 </script>
 
 <template>
@@ -20,7 +21,8 @@ import BuyCar from './components/BuyCar.vue'
     <!-- <Demo1 /> -->
     <!-- <Demo2 /> -->
     <!-- <Demo3 /> -->
-    <BuyCar />
+    <!-- <BuyCar /> -->
+     <Flip3D />
   </div>
 </template>
 

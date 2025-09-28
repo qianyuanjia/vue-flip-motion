@@ -1,4 +1,22 @@
 
+function matrix2dTo3d(matrix2d) {
+    const [a, b, c, d, tx, ty] = matrix2d;
+
+    // 构造3D矩阵，Z轴保持不变
+    const matrix3d = [
+        a,  b,  0,  0,  // 第一列
+        c,  d,  0,  0,  // 第二列
+        0,  0,  1,  0,  // 第三列
+        tx, ty, 0,  1   // 第四列
+    ];
+
+    return matrix3d;
+}
+
+const getTransformMatrix=(transform)=>{
+  const  prefixLength = transform.startsWith('matrix3d') ? 9 : 7;
+  return transform.slice(prefixLength, -1).split(',').map(Number);
+}
 export class Flip {
   constructor(options = {}) {
     this.animateOption = options.animateOption || {}
@@ -32,45 +50,76 @@ export class Flip {
     return state
   }
 
- getKeyFrame(firstState, lastState) {
+
+getKeyFrame(firstState, lastState) {
     const { rect:firstRect, transform, styles } = firstState;
     const { rect:lastRect, transform: lastTransform, styles: lastStyles } = lastState;
-    const firstAnimateKeyframe ={...styles}
-    const lastAnimateKeyframe ={...lastStyles}
+    const firstAnimateKeyframe = {...styles};
+    const lastAnimateKeyframe = {...lastStyles};
+    
     if(this.styles.includes('width')){
-      firstAnimateKeyframe.width = `${firstRect.offsetWidth}px`
-      lastAnimateKeyframe.width = `${lastRect.offsetWidth}px`
+        firstAnimateKeyframe.width = `${firstRect.offsetWidth}px`;
+        lastAnimateKeyframe.width = `${lastRect.offsetWidth}px`;
     }
     if(this.styles.includes('height')){
-      firstAnimateKeyframe.height = `${firstRect.offsetHeight}px`
-      lastAnimateKeyframe.height = `${lastRect.offsetHeight}px`
+        firstAnimateKeyframe.height = `${firstRect.offsetHeight}px`;
+        lastAnimateKeyframe.height = `${lastRect.offsetHeight}px`;
     }
-    const isSameSize=firstRect.offsetWidth===lastRect.offsetWidth && firstRect.offsetHeight===lastRect.offsetHeight;
-    let diffX = isSameSize?firstRect.center.x - lastRect.center.x:firstRect.left - lastRect.left;
-    let diffY = isSameSize?firstRect.center.y - lastRect.center.y:firstRect.top - lastRect.top;
-    let firstMatrix = transform.slice(7,-1).split(',').map(Number)
-    const lastMatrix = lastTransform.slice(7,-1).split(',').map(Number)
-    diffX=lastMatrix[4]+diffX
-    diffY=lastMatrix[5]+diffY
+    const is3D = transform.startsWith('matrix3d') || lastTransform.startsWith('matrix3d');
+    const isSameSize = !is3D && firstRect.offsetWidth === lastRect.offsetWidth && 
+                      firstRect.offsetHeight === lastRect.offsetHeight;
+    let diffX = isSameSize ? firstRect.center.x - lastRect.center.x : firstRect.left - lastRect.left;
+    let diffY = isSameSize ? firstRect.center.y - lastRect.center.y : firstRect.top - lastRect.top;
+
+    // 兼容matrix和matrix3d的解析
+    const matrixSize = is3D ? 16 : 6;
+    let firstMatrix = getTransformMatrix(transform)
+    let lastMatrix = getTransformMatrix(lastTransform)
+
+    // 确保矩阵长度正确
+    if (firstMatrix.length !== matrixSize){
+      firstMatrix = matrix2dTo3d(firstMatrix)
+    };
+    if (lastMatrix.length !== matrixSize){
+      lastMatrix = matrix2dTo3d(lastMatrix)
+    }
+
+    // 3D矩阵的位置索引不同
+    const xIndex = is3D ? 12 : 4;
+    const yIndex = is3D ? 13 : 5;
+    
+    diffX = lastMatrix[xIndex] + diffX;
+    diffY = lastMatrix[yIndex] + diffY;
+
     if(this.styles.includes('position-x')){
-      firstMatrix[4] = firstMatrix[4] + diffX
+        firstMatrix[xIndex] = firstMatrix[xIndex] + diffX;
     }else{
-      firstMatrix[4] = lastMatrix[4]
+        firstMatrix[xIndex] = lastMatrix[xIndex];
     }
+
     if(this.styles.includes('position-y')){
-      firstMatrix[5] = firstMatrix[5] + diffY
+        firstMatrix[yIndex] = firstMatrix[yIndex] + diffY;
     }else{
-      firstMatrix[5] = lastMatrix[5]
+        firstMatrix[yIndex] = lastMatrix[yIndex];
     }
+
     if(!this.styles.includes('transform')){
-      firstMatrix =[...lastMatrix.slice(0,4),firstMatrix[4],firstMatrix[5]]
+      const matrix = lastMatrix.slice()
+      matrix[xIndex] = firstMatrix[xIndex]
+      matrix[yIndex] = firstMatrix[yIndex]
+      firstMatrix = matrix;
     }
-    firstAnimateKeyframe.transform = `matrix(${firstMatrix.join(',')})`
+
+    firstAnimateKeyframe.transform = is3D ? 
+        `matrix3d(${firstMatrix.join(',')})` : 
+        `matrix(${firstMatrix.join(',')})`;
+
     return {
         firstAnimateKeyframe,
         lastAnimateKeyframe
-    }
-  }
+    };
+}
+
 
   // 执行FLIP动画流程
   animate(element, firstState, lastState) {
