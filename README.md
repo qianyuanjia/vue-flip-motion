@@ -6,7 +6,11 @@
 
 基于 FLIP (First Last Invert Play) 动画技术封装的 Vue 组件，让您的动画效果如德芙般丝滑流畅！
 
+### 列表重排动画
 ![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/demo1.gif)
+
+### 运动轨迹叠加动画
+![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/buycar.gif)
 
 ## ✨ 特性
 

@@ -19,24 +19,34 @@
         </div>
         <div class="controls">
             <button @click="handleAdd">添加商品</button>
+            <button @click="handleEase">更改抛物线</button>
         </div>
     </div>
 </template>
 <script setup>
-import {onMounted,ref,reactive} from 'vue'
+import {onMounted,ref,reactive,nextTick} from 'vue'
 import Flip from '../components/Flip/index.vue'
 
 const cartRef = ref(null)
 const productRef = ref(null)
 const move = reactive({x:0,y:0})
-const duration = 500
-const easing='cubic-bezier(.73,.04,.93,.66)'
+const duration = ref(500)
+const easing=ref('cubic-bezier(.73,.04,.93,.66)')
  const handleAdd = ()=>{
     const cart = cartRef.value.getBoundingClientRect()
     const product = productRef.value.getBoundingClientRect()
     move.x = cart.x - product.x
     move.y = cart.y - product.y
-    console.log(move)
+ }
+ const handleEase=()=>{
+   duration.value=0
+   move.x=0
+   move.y=0
+   nextTick(()=>{
+     easing.value = 'cubic-bezier(0.1, 0.8, 0.9, 0.2)'
+     duration.value=500
+     handleAdd()
+   })
  }
 </script>
 <style scoped>
