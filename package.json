@@ -1,6 +1,6 @@
 {
   "name": "vue-flip-motion",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A Vue component based on FLIP (First Last Invert Play) animation technique that makes your animations as smooth as silk!",
   "keywords": [
     "flip",
