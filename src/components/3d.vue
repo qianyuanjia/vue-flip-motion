@@ -27,6 +27,7 @@ const handleClick = ()=>{
   transform: rotateX(45deg);
   &.active{
       transform: translate3d(100px,100px,300px) rotateX(45deg);
+      /* transition: all 1s; */
   }
 }
 </style>

@@ -88,8 +88,8 @@ getKeyFrame(firstState, lastState) {
     const xIndex = is3D ? 12 : 4;
     const yIndex = is3D ? 13 : 5;
     
-    diffX = lastMatrix[xIndex] + diffX;
-    diffY = lastMatrix[yIndex] + diffY;
+    diffX = transform === lastTransform ? lastMatrix[xIndex] + diffX : 0;
+    diffY = transform === lastTransform ? lastMatrix[yIndex] + diffY : 0;
 
     if(this.styles.includes('position-x')){
         firstMatrix[xIndex] = firstMatrix[xIndex] + diffX;
