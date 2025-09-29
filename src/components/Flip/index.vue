@@ -46,6 +46,7 @@ watch(()=>props.mutation,()=>{
   }else{
     elements = Array.from(flipRef.value.children);
   }
+  let count = 0
   elements.forEach(element=>{
     const flip = new Flip(flipOption.value)
     flip.captureFirstState(element)
@@ -55,7 +56,10 @@ watch(()=>props.mutation,()=>{
         lastElement = flipRef.value.querySelector(element.dataset.flipSelector)
       }
       flip.flip(lastElement).then(()=>{
-        emits('finish')
+        count++;
+        if(count === elements.length){
+          emits('finish')
+        }
       })
     })
   })

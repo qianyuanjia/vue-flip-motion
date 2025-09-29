@@ -1,6 +1,6 @@
 <template>
     <Flip :styles="['backgroundColor']" :mutation="[left,right]" selector=".item" :animate-option="{duration:1000}">
-        <Flip class="wrapper" :mutation="[left,right]" selector=".item" :animate-option="{duration:500}" :styles="['position-x','position-y']">
+        <Flip class="wrapper" :mutation="[left,right]" selector=".item" :animate-option="{duration:500}" :styles="['position-x','position-y']" @finish="enable=true">
             <div class="left">
                 <div v-for="item in left" :key="item.id" class="item" @click="clickLeft(item)" :id="item.id" :data-flip-selector="`#${item.id}`"></div>
             </div>
@@ -24,12 +24,18 @@ const right=ref(new Array(3).fill(0).map((_,index)=>{
     }
 }))
 
+const enable = ref(true)
+
 const clickLeft=(item)=>{
+    if(!enable.value) return;
+    enable.value=false
     const index = left.value.indexOf(item)
     left.value.splice(index,1)
     right.value.push(item)
 }
 const clickRight=(item)=>{
+    if(!enable.value) return;
+    enable.value=false
     const index = right.value.indexOf(item)
     right.value.splice(index,1)
     left.value.unshift(item)

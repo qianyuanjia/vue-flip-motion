@@ -58,6 +58,7 @@ export default {
                 }else{
                     elements = Array.from(this.$refs.flipRef.children);
                 }
+                let count = 0;
                 elements.forEach(element => {
                     const flip = new Flip(this.flipOption)
                     flip.captureFirstState(element)
@@ -67,7 +68,10 @@ export default {
                             lastElement = flipRef.value.querySelector(element.dataset.flipSelector)
                         }
                         flip.flip(lastElement).then(()=>{
-                           this.$emit('finish')
+                           count++;
+                           if(count === elements.length){
+                             this.$emit('finish')
+                           }
                         })
                     })
                 })
