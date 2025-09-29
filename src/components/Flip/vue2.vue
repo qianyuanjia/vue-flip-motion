@@ -62,7 +62,11 @@ export default {
                     const flip = new Flip(this.flipOption)
                     flip.captureFirstState(element)
                     this.$nextTick(() => {
-                        flip.flip(element).then(()=>{
+                        let lastElement = element
+                        if(element.dataset.flipSelector){
+                            lastElement = flipRef.value.querySelector(element.dataset.flipSelector)
+                        }
+                        flip.flip(lastElement).then(()=>{
                            this.$emit('finish')
                         })
                     })

@@ -6,11 +6,7 @@
 
 基于 FLIP (First Last Invert Play) 动画技术封装的 Vue 组件，让您的动画效果如德芙般丝滑流畅！
 
-### 列表重排动画
 ![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/demo1.gif)
-
-### 运动轨迹叠加动画
-![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/buycar.gif)
 
 ## ✨ 特性
 
@@ -156,6 +152,20 @@ Flip组件可以嵌套使用，相当于叠加多个动画效果,注意外层的
   </Flip>
 </Flip>
 ```
+### 自定义选择器获取动画元素终态
+某些场景下，动画初始状态和结束状态不是同一个dom元素，所以需要自定义选择器获取动画元素终态。
+可以在初始状态元素上设置`data-flip-selector`自定义选择器，指定动画终态的元素。
+
+```vue
+   <Flip class="wrapper" :mutation="[left,right]" selector=".item" :animate-option="{duration:500}" :styles="['position-x','position-y']">
+      <div class="left">
+          <div v-for="item in left" :key="item.id" class="item" @click="clickLeft(item)" :id="item.id" :data-flip-selector="`#${item.id}`"></div>
+      </div>
+      <div class="right">
+          <div v-for="item in right" :key="item.id" class="item" @click="clickRight(item)" :id="item.id" :data-flip-selector="`#${item.id}`"></div>
+      </div>
+  </Flip>
+```
 
 ### 事件
 - `finish`: 动画结束时触发
@@ -178,6 +188,19 @@ Flip组件可以嵌套使用，相当于叠加多个动画效果,注意外层的
 3. 可以通过 `styles` 数组指定需要的动画样式
 4. 嵌套使用时会产生叠加动画效果
 5. 确保选择器能正确匹配到目标元素
+
+## 案例演示
+- 列表重排动画（[get code](https://github.com/qianyuanjia/vue-flip-motion/blob/main/src/components/Demo1.vue)）
+![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/demo1.gif)
+
+- 网格位移动画（[get code](https://github.com/qianyuanjia/vue-flip-motion/blob/main/src/components/Squire.vue)）
+![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/squire.gif)
+
+- 运动轨迹叠加动画（[get code](https://github.com/qianyuanjia/vue-flip-motion/blob/main/src/components/BuyCar.vue)）
+![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/buycar.gif)
+
+- 穿梭框动画（[get code](https://github.com/qianyuanjia/vue-flip-motion/blob/main/src/components/Replace.vue)）
+![demo](https://raw.githubusercontent.com/qianyuanjia/vue-flip-motion/refs/heads/main/src/assets/replace.gif)
 
 ## 🤝 贡献指南
 

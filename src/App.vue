@@ -9,6 +9,8 @@ import Demo2 from './components/Demo2.vue'
 import Demo3 from './components/Demo3.vue'
 import BuyCar from './components/BuyCar.vue'
 import Flip3D from './components/3d.vue'
+// import Squire from './components/Squire.vue'
+import Replace from './components/Replace.vue'
 </script>
 
 <template>
@@ -22,7 +24,9 @@ import Flip3D from './components/3d.vue'
     <!-- <Demo2 /> -->
     <!-- <Demo3 /> -->
     <!-- <BuyCar /> -->
-     <Flip3D />
+    <!-- <Flip3D /> -->
+    <!-- <Squire /> -->
+    <Replace />
   </div>
 </template>
 

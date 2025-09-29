@@ -50,7 +50,11 @@ watch(()=>props.mutation,()=>{
     const flip = new Flip(flipOption.value)
     flip.captureFirstState(element)
     nextTick(()=>{
-      flip.flip(element).then(()=>{
+      let lastElement = element
+      if(element.dataset.flipSelector){
+        lastElement = flipRef.value.querySelector(element.dataset.flipSelector)
+      }
+      flip.flip(lastElement).then(()=>{
         emits('finish')
       })
     })
